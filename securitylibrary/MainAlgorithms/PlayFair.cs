@@ -29,7 +29,107 @@ namespace SecurityLibrary
 
         public string Decrypt(string cipherText, string key)
         {
-            throw new NotImplementedException();
+            int PositionNow = 0;
+            string plainText = "";
+            key = key.ToLower();
+            string charPosition = null;
+            string cipher = cipherText.ToLower();
+            string alphabetletters = "abcdefghiklmnopqrstuvwxyz";
+            key = key.Replace('j', 'i');
+            //fill matrix with key
+            for (int i = 0; i < key.Length; i++)
+            {
+                if ((charPosition == null) || (!charPosition.Contains(key[i])))
+                {
+                    charPosition += key[i];
+                }
+            }
+            //fill matrix with alphabet if key finished
+
+            for (int i = 0; i < alphabetletters.Length; i++)
+            {
+
+                if (!charPosition.Contains(alphabetletters[i]))
+                {
+
+                    charPosition += alphabetletters[i];
+
+                }
+            }
+
+            while (PositionNow < cipher.Length)
+            {
+                int PositionOne = charPosition.IndexOf(cipher[PositionNow]);
+                int PositionTwo = charPosition.IndexOf(cipher[PositionNow + 1]);
+                int FirstRow = PositionOne / 5;
+                int SecondRow = PositionTwo / 5;
+                int FirstColumn = PositionOne % 5;
+                int SecondCloumn = PositionTwo % 5;
+                if (FirstColumn == SecondCloumn)
+                {
+                    PositionOne -= 5;
+                    PositionTwo -= 5;
+                }
+                else
+                {
+                    if (FirstRow == SecondRow)
+                    {
+                        if (FirstColumn == 0)
+                        {
+                            PositionOne += 4;
+                        }
+                        else
+                        {
+                            PositionOne -= 1;
+                        }
+
+                        if (SecondCloumn == 0)
+                        {
+                            PositionTwo += 4;
+                        }
+
+                        else
+                        {
+                            PositionTwo -= 1;
+                        }
+                    }
+                    else
+                    {
+                        if (FirstRow < SecondRow)
+                        {
+                            PositionOne -= FirstColumn - SecondCloumn;
+                            PositionTwo += FirstColumn - SecondCloumn;
+
+                        }
+
+                        else
+                        {
+                            PositionOne += SecondCloumn - FirstColumn;
+                            PositionTwo -= SecondCloumn - FirstColumn;
+                        }
+                    }
+                }
+                if (PositionOne >= charPosition.Length)// same row
+                {
+                    PositionOne = PositionOne - charPosition.Length;
+                }
+                if (PositionTwo >= charPosition.Length)
+                {
+                    PositionTwo = PositionTwo - charPosition.Length;
+                }
+                if (PositionOne < 0)
+                {
+                    PositionOne = charPosition.Length + PositionOne;
+                }
+                if (PositionTwo < 0)
+                {
+                    PositionTwo = charPosition.Length + PositionTwo;
+                }
+                ////
+                plainText += charPosition[PositionOne].ToString() + charPosition[PositionTwo].ToString();
+                PositionNow += 2;
+            }
+            return plainText;
         }
 
         public string Encrypt(string plainText, string key)
