@@ -93,109 +93,211 @@ namespace SecurityLibrary
                 temp[newCipher[i] - 97]++;
             }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.1251)
+                {
                     key['e' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
-                if (((float)temp[i] / newCipher.Length) >= 0.0925 && ((float)temp[i] / newCipher.Length) < 0.1251)
+            {   if (((float)temp[i] / newCipher.Length) >= 0.0925 && ((float)temp[i] / newCipher.Length) < 0.1251)
+                {
                     key['t' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
-                if (((float)temp[i] / newCipher.Length) >= 0.0804 && ((float)temp[i] / newCipher.Length) < 0.0925)
+            {   if (((float)temp[i] / newCipher.Length) >= 0.0804 && ((float)temp[i] / newCipher.Length) < 0.0925)
+                {
                     key['a' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.076 && ((float)temp[i] / newCipher.Length) < 0.0804)
+                {
                     key['o' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0726 && ((float)temp[i] / newCipher.Length) < 0.076)
+                {
                     key['i' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0709 && ((float)temp[i] / newCipher.Length) < 0.0726)
+                {
                     key['n' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0654 && ((float)temp[i] / newCipher.Length) < 0.0709)
+                {
                     key['s' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0612 && ((float)temp[i] / newCipher.Length) < 0.0654)
+                {
                     key['r' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0549 && ((float)temp[i] / newCipher.Length) < 0.0612)
+                {
                     key['h' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0414 && ((float)temp[i] / newCipher.Length) < 0.0549)
+                {
                     key['l' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0399 && ((float)temp[i] / newCipher.Length) < 0.0414)
+                {
                     key['d' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0306 && ((float)temp[i] / newCipher.Length) < 0.0399)
+                {
                     key['c' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0271 && ((float)temp[i] / newCipher.Length) < 0.0306)
+                {
                     key['u' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0253 && ((float)temp[i] / newCipher.Length) < 0.0271)
+                {
                     key['m' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.023 && ((float)temp[i] / newCipher.Length) < 0.0253)
+                {
                     key['f' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.02 && ((float)temp[i] / newCipher.Length) < 0.023)
+                {
                     key['p' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0196 && ((float)temp[i] / newCipher.Length) < 0.02)
+                {
                     key['g' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0192 && ((float)temp[i] / newCipher.Length) < 0.0196)
+                {
                     key['w' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0173 && ((float)temp[i] / newCipher.Length) < 0.0192)
+                {
                     key['y' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0154 && ((float)temp[i] / newCipher.Length) < 0.0173)
+                {
                     key['b' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0099 && ((float)temp[i] / newCipher.Length) < 0.0154)
+                {
                     key['v' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0067 && ((float)temp[i] / newCipher.Length) < 0.0099)
+                {
                     key['k' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0019 && ((float)temp[i] / newCipher.Length) < 0.0067)
+                {
                     key['x' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0016 && ((float)temp[i] / newCipher.Length) < 0.0019)
+                {
                     key['j' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0011 && ((float)temp[i] / newCipher.Length) < 0.0016)
+                {
                     key['q' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
+            {
                 if (((float)temp[i] / newCipher.Length) >= 0.0009 && ((float)temp[i] / newCipher.Length) < 0.0011)
+                {
                     key['z' - 97] = (char)(i + 97);
-
+                    break;
+                }
+            }
             for (int i = 0; i < 26; i++)
             {
                 if (key[i].Equals('\0'))
@@ -215,7 +317,7 @@ namespace SecurityLibrary
                     }
                 }
             }
-            return new string(key);
+            return Decrypt(cipher, new string(key));
         }
     }
 }
