@@ -29,44 +29,162 @@ namespace SecurityLibrary
 
         public string Decrypt(string cipherText, string key)
         {
-            throw new NotImplementedException();
+            int j = 0;
+            string plainText = "";
+            key = key.ToLower();
+            string charPosition = null;
+            cipherText = cipherText.ToLower();
+            string alphabetletters = "abcdefghiklmnopqrstuvwxyz";
+            key = key.Replace('j', 'i');
+            //fill matrix with key
+            for (int i = 0; i < key.Length; i++)
+            {
+                if ((charPosition == null) || (!charPosition.Contains(key[i])))
+                {
+                    charPosition += key[i];
+                }
+            }
+            //fill matrix with alphabet if key finished
+
+            for (int i = 0; i < alphabetletters.Length; i++)
+            {
+
+                if (!charPosition.Contains(alphabetletters[i]))
+                {
+
+                    charPosition += alphabetletters[i];
+
+                }
+            }
+
+
+            while (j < cipherText.Length)
+            {
+                int FirstPosition = charPosition.IndexOf(cipherText[j]);
+                int SecondPosition = charPosition.IndexOf(cipherText[j + 1]);
+                int FirstRow = FirstPosition / 5;
+                int SecondRow = SecondPosition / 5;
+                int FirstColumn = FirstPosition % 5;
+                int SecondCloumn = SecondPosition % 5;
+                if (FirstColumn == SecondCloumn)
+                {
+                    FirstPosition -= 5;
+                    SecondPosition -= 5;
+                }
+                else
+                {
+                    if (FirstRow == SecondRow)
+                    {
+                        if (FirstColumn == 0)
+                        {
+                            FirstPosition += 4;
+                        }
+                        else
+                        {
+                            FirstPosition -= 1;
+                        }
+
+                        if (SecondCloumn == 0)
+                        {
+                            SecondPosition += 4;
+                        }
+
+                        else
+                        {
+                            SecondPosition -= 1;
+                        }
+                    }
+                    else
+                    {
+                        if (FirstRow < SecondRow)
+                        {
+                            FirstPosition -= FirstColumn - SecondCloumn;
+                            SecondPosition += FirstColumn - SecondCloumn;
+
+                        }
+
+                        else
+                        {
+                            FirstPosition += SecondCloumn - FirstColumn;
+                            SecondPosition -= SecondCloumn - FirstColumn;
+                        }
+                    }
+                }
+                if (FirstPosition >= charPosition.Length)
+                {
+                    FirstPosition = FirstPosition - charPosition.Length;
+                }
+                if (SecondPosition >= charPosition.Length)
+                {
+                    SecondPosition = SecondPosition - charPosition.Length;
+                }
+                if (FirstPosition < 0)
+                {
+                    FirstPosition = charPosition.Length + FirstPosition;
+                }
+                if (SecondPosition < 0)
+                {
+                    SecondPosition = charPosition.Length + SecondPosition;
+                }
+                ////
+                plainText += charPosition[FirstPosition].ToString() + charPosition[SecondPosition].ToString();
+                j += 2;
+            }
+            List<int> indecies = new List<int>();
+            for (int i = 1; i < plainText.Length; i += 2)
+            {
+                // gllnm ...gl lx nm (same letter)
+                if (((i + 1) < plainText.Length)  && (plainText[i - 1] == plainText[i + 1]) && (plainText[i] == 'x'))
+                {
+                    indecies.Add(i);
+                }
+            }
+            int count = 0;
+            foreach(int i in indecies)
+            {
+                plainText = plainText.Remove(i - count, 1);
+                count++;
+            }
+            //bkgok ..bx go kx //lenght odd
+            if (((plainText.Length % 2) == 0) && (plainText[plainText.Length - 1] == 'x'))
+            {
+                plainText = plainText.Remove(plainText.Length - 1, 1);
+            }
+            return plainText;
         }
 
         public string Encrypt(string plainText, string key)
         {
             key = key.ToLower();
-            plainText = plainText.ToLower();  
-            int PositionNow = 0;
+            plainText = plainText.ToLower();
+            int j = 0;
             string chipertext = string.Empty;
-            Regex dictionary = new Regex("[^a-z-]");//specify a range with abcde.....like Dictionary
-            plainText = dictionary.Replace(plainText, "");
             plainText = plainText.Replace('j', 'i');// replace i with j
-            for (int g = 0; g < plainText.Length; g += 2)
+            for (int i = 0; i < plainText.Length; i += 2)
             {
                 // gllnm ...gl lx nm (same letter)
-                if (((g + 1) < plainText.Length) && (plainText[g] == plainText[g + 1]))
+                if (((i + 1) < plainText.Length) && (plainText[i] == plainText[i + 1]))
                 {
-                    plainText = plainText.Insert(g + 1, "x");
+                    plainText = plainText.Insert(i + 1, "x");
                 }
             }
             //bkgok ..bx go kx //lenght odd
-            if ((plainText.Length % 2) > 0)
+            if ((plainText.Length % 2) == 1)
             {
                 plainText += "x";
             }
             if ((plainText != "") && (key != ""))
             {
                 string alphabetletters = "abcdefghiklmnopqrstuvwxyz";
-                string charPosition = null;
-                key = dictionary.Replace(key, ""); 
+                string matrix = null;
                 key = key.Replace('j', 'i');
-               
+
                 //fill matrix with key
                 for (int i = 0; i < key.Length; i++)
                 {
-                    if ((charPosition == null) || (!charPosition.Contains(key[i])))
+                    if ((matrix == null) || (!matrix.Contains(key[i])))
                     {
-                        charPosition += key[i];
+                        matrix += key[i];
                     }
                 }
                 //fill matrix with alphabet if key finished
@@ -74,107 +192,77 @@ namespace SecurityLibrary
                 for (int i = 0; i < alphabetletters.Length; i++)
                 {
 
-                    if (!charPosition.Contains(alphabetletters[i]))
+                    if (!matrix.Contains(alphabetletters[i]))
                     {
 
-                        charPosition += alphabetletters[i];
+                        matrix += alphabetletters[i];
 
                     }
 
                 }
-
-                 // string newpliantext = plainText.Replace(" ", "");
-              //  plainText = newpliantext;
-                /*
-                for (int i = 0; i < plainText.Length; i++)
-                {
-                    plainText += plainText[i];
-
-                    if (i < plainText.Length - 1 && plainText[i] == plainText[i + 1]) 
-                    {
-                        plainText = plainText.Insert(i+1,"x");
-                    }
-                }
-
-                if (plainText.Length % 2 != 0)
-                {
-                    plainText += 'x';
-                }
-
-                */
 
                 //get Row and Column of each character
-                 while(PositionNow < plainText.Length)
+                while (j < plainText.Length)
                 {
-                    int PositionOne = charPosition.IndexOf(plainText[PositionNow]);
-                    int PositionTwo = charPosition.IndexOf(plainText[PositionNow + 1]);
-                    int FirstRow = PositionOne / 5;
-                    int SecondRow = PositionTwo / 5;
-                    int FirstColumn= PositionOne % 5;
-                    int SecondCloumn = PositionTwo % 5;
-                    if (PositionOne < 0)
+                    int FirstPosition = matrix.IndexOf(plainText[j]);
+                    int SecondPosition = matrix.IndexOf(plainText[j + 1]);
+                    int FirstRow = FirstPosition / 5;
+                    int SecondRow = SecondPosition / 5;
+                    int FirstColumn = FirstPosition % 5;
+                    int SecondCloumn = SecondPosition % 5;
+
+                    if (FirstRow == SecondRow)
                     {
-                        PositionOne = charPosition.Length + PositionOne;
-                    }
-                    if (PositionTwo < 0)
-                    {
-                        PositionTwo = charPosition.Length + PositionTwo;
-                    }
-                     ////
-                     if (FirstRow == SecondRow)
+                        if (FirstColumn == 4)
                         {
-                            if (FirstColumn == 4)
-                            {
-                                PositionOne -= 4;
-                            }
-                            else
-                            {
-                                PositionOne += 1;
-                            }
-
-                            if (SecondCloumn == 4)
-                            {
-                                PositionTwo -= 4;
-                            }
-
-                            else
-                            {
-                                PositionTwo += 1;
-                            }
-                     }
-                        //
-                    else
-                    {
-                          if (FirstColumn == SecondCloumn)
-                    {
-                        PositionOne += 5;
-                        PositionTwo += 5;
-                    }
+                            FirstPosition -= 4;
+                        }
                         else
-                          {
-                            if (FirstRow > SecondRow)
-                            {
-                                PositionOne += SecondCloumn - FirstColumn;
-                                PositionTwo -= SecondCloumn - FirstColumn;
-                            }
+                        {
+                            FirstPosition += 1;
+                        }
 
-                            else
-                            {
-                                PositionOne -= FirstColumn - SecondCloumn;
-                                PositionTwo += FirstColumn - SecondCloumn;
-                            }
+                        if (SecondCloumn == 4)
+                        {
+                            SecondPosition -= 4;
+                        }
+
+                        else
+                        {
+                            SecondPosition += 1;
                         }
                     }
-                     if (PositionOne >= charPosition.Length)// same row
-                     {
-                         PositionOne = PositionOne - charPosition.Length;
-                     }
-                     if (PositionTwo >= charPosition.Length)
-                     {
-                         PositionTwo = PositionTwo - charPosition.Length;
-                     }
-                    chipertext += charPosition[PositionOne].ToString() + charPosition[PositionTwo].ToString();
-                    PositionNow += 2;
+
+                    else if (FirstColumn == SecondCloumn)
+                    {
+                        FirstPosition += 5;
+                        SecondPosition += 5;
+                    }
+                    else
+                    {
+                        if (FirstRow > SecondRow)
+                        {
+                            FirstPosition += SecondCloumn - FirstColumn;
+                            SecondPosition -= SecondCloumn - FirstColumn;
+                        }
+
+                        else
+                        {
+                            FirstPosition -= FirstColumn - SecondCloumn;
+                            SecondPosition += FirstColumn - SecondCloumn;
+                        }
+                    }
+
+                    if (FirstPosition >= matrix.Length)
+                    {
+                        FirstPosition = FirstPosition - matrix.Length;
+                    }
+                    if (SecondPosition >= matrix.Length)
+                    {
+                        SecondPosition = SecondPosition - matrix.Length;
+                    }
+                    chipertext += matrix[FirstPosition].ToString() + matrix[SecondPosition].ToString();
+                    j += 2;
                 }
             }
             return chipertext;

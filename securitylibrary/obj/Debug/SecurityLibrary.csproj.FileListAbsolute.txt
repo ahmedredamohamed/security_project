@@ -3,3 +3,8 @@ C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\bin\Debug\SecurityL
 C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
 C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
 C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
+C:\Users\devar\Security-Project\SecurityLibrary\bin\Debug\SecurityLibrary.dll
+C:\Users\devar\Security-Project\SecurityLibrary\bin\Debug\SecurityLibrary.pdb
+C:\Users\devar\Security-Project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
+C:\Users\devar\Security-Project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
+C:\Users\devar\Security-Project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
