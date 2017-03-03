@@ -131,16 +131,17 @@ namespace SecurityLibrary
                     indecies.Add(i);
                 }
             }
+            //bkgok ..bx go kx //lenght odd
+            if (((plainText.Length % 2) == 0) && (plainText[plainText.Length - 1] == 'x'))
+            {
+                plainText = plainText.Remove(plainText.Length - 1, 1);
+            }
+
             int count = 0;
             foreach(int i in indecies)
             {
                 plainText = plainText.Remove(i - count, 1);
                 count++;
-            }
-            //bkgok ..bx go kx //lenght odd
-            if (((plainText.Length % 2) == 0) && (plainText[plainText.Length - 1] == 'x'))
-            {
-                plainText = plainText.Remove(plainText.Length - 1, 1);
             }
             return plainText;
         }
