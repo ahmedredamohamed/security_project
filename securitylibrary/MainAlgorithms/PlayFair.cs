@@ -32,16 +32,16 @@ namespace SecurityLibrary
             int j = 0;
             string plainText = "";
             key = key.ToLower();
-            string charPosition = null;
+            string matrix = null;
             cipherText = cipherText.ToLower();
             string alphabetletters = "abcdefghiklmnopqrstuvwxyz";
             key = key.Replace('j', 'i');
             //fill matrix with key
             for (int i = 0; i < key.Length; i++)
             {
-                if ((charPosition == null) || (!charPosition.Contains(key[i])))
+                if ((matrix == null) || (!matrix.Contains(key[i])))
                 {
-                    charPosition += key[i];
+                    matrix += key[i];
                 }
             }
             //fill matrix with alphabet if key finished
@@ -49,10 +49,10 @@ namespace SecurityLibrary
             for (int i = 0; i < alphabetletters.Length; i++)
             {
 
-                if (!charPosition.Contains(alphabetletters[i]))
+                if (!matrix.Contains(alphabetletters[i]))
                 {
 
-                    charPosition += alphabetletters[i];
+                    matrix += alphabetletters[i];
 
                 }
             }
@@ -60,8 +60,8 @@ namespace SecurityLibrary
 
             while (j < cipherText.Length)
             {
-                int FirstPosition = charPosition.IndexOf(cipherText[j]);
-                int SecondPosition = charPosition.IndexOf(cipherText[j + 1]);
+                int FirstPosition = matrix.IndexOf(cipherText[j]);
+                int SecondPosition = matrix.IndexOf(cipherText[j + 1]);
                 int FirstRow = FirstPosition / 5;
                 int SecondRow = SecondPosition / 5;
                 int FirstColumn = FirstPosition % 5;
@@ -110,24 +110,16 @@ namespace SecurityLibrary
                         }
                     }
                 }
-                if (FirstPosition >= charPosition.Length)
-                {
-                    FirstPosition = FirstPosition - charPosition.Length;
-                }
-                if (SecondPosition >= charPosition.Length)
-                {
-                    SecondPosition = SecondPosition - charPosition.Length;
-                }
                 if (FirstPosition < 0)
                 {
-                    FirstPosition = charPosition.Length + FirstPosition;
+                    FirstPosition = matrix.Length + FirstPosition;
                 }
                 if (SecondPosition < 0)
                 {
-                    SecondPosition = charPosition.Length + SecondPosition;
+                    SecondPosition = matrix.Length + SecondPosition;
                 }
                 ////
-                plainText += charPosition[FirstPosition].ToString() + charPosition[SecondPosition].ToString();
+                plainText += matrix[FirstPosition].ToString() + matrix[SecondPosition].ToString();
                 j += 2;
             }
             List<int> indecies = new List<int>();
