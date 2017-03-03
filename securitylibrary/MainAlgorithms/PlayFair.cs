@@ -31,7 +31,6 @@ namespace SecurityLibrary
         {
             int j = 0;
             string plainText = "";
-            key = key.ToLower();
             string charPosition = null;
             cipherText = cipherText.ToLower();
             string alphabetletters = "abcdefghiklmnopqrstuvwxyz";
@@ -155,8 +154,6 @@ namespace SecurityLibrary
 
         public string Encrypt(string plainText, string key)
         {
-            key = key.ToLower();
-            plainText = plainText.ToLower();
             int j = 0;
             string chipertext = string.Empty;
             plainText = plainText.Replace('j', 'i');// replace i with j
