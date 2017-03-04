@@ -17,7 +17,7 @@ namespace SecurityLibrary
         {
             double length = cipherText.Length;
             double coldouble = length / key;
-            int col_num = (int)(coldouble + 0.5);
+            int col_num = (int)Math.Ceiling(coldouble);
             string plainText = "";
             int counter = 0;
             char[,] table = new char[key, col_num];
@@ -54,7 +54,7 @@ namespace SecurityLibrary
         {
             double length = plainText.Length;
             double coldouble = length / key;
-            int  col_num = (int)(coldouble + 0.5);
+            int  col_num = (int) Math.Ceiling(coldouble);
             string cipherText = "";
             int counter = 0;
             char[,] table = new char[key, col_num];

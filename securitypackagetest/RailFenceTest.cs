@@ -50,7 +50,7 @@ namespace SecurityPackageTest
         public void RailFenceTestEnc2()
         {
             RailFence algorithm = new RailFence();
-            string cipher = algorithm.Encrypt(mainPlain2, mainKey2);
+            string cipher = algorithm.Encrypt(mainPlain1, mainKey2);
             // Add x's or not
             Assert.IsTrue(cipher.Equals(mainCipher2, StringComparison.InvariantCultureIgnoreCase) 
                        || cipher.Equals(mainCipher3, StringComparison.InvariantCultureIgnoreCase));
