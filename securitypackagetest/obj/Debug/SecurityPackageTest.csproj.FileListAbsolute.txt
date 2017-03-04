@@ -12,3 +12,10 @@ C:\Users\devar\Security-Project\SecurityPackageTest\bin\Debug\SecurityLibrary.pd
 C:\Users\devar\Security-Project\SecurityPackageTest\obj\Debug\SecurityPackageTest.csprojResolveAssemblyReference.cache
 C:\Users\devar\Security-Project\SecurityPackageTest\obj\Debug\SecurityPackageTest.dll
 C:\Users\devar\Security-Project\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb
+A:\FCIS\semester 8\Computer Security\Project\security_project\SecurityPackageTest\bin\Debug\SecurityPackageTest.dll
+A:\FCIS\semester 8\Computer Security\Project\security_project\SecurityPackageTest\bin\Debug\SecurityPackageTest.pdb
+A:\FCIS\semester 8\Computer Security\Project\security_project\SecurityPackageTest\bin\Debug\SecurityLibrary.dll
+A:\FCIS\semester 8\Computer Security\Project\security_project\SecurityPackageTest\bin\Debug\SecurityLibrary.pdb
+A:\FCIS\semester 8\Computer Security\Project\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.csprojResolveAssemblyReference.cache
+A:\FCIS\semester 8\Computer Security\Project\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.dll
+A:\FCIS\semester 8\Computer Security\Project\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb

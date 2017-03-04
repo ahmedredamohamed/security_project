@@ -20,7 +20,34 @@ namespace SecurityLibrary
 
         public string Encrypt(string plainText, int key)
         {
-            throw new NotImplementedException();
+            double length = plainText.Length;
+            double coldouble = length / key;
+            int  col_num = (int)(coldouble + 0.5);
+            string cipherText = "";
+            int counter = 0;
+            char[,] table = new char[key, col_num];
+            for (int j = 0; j < col_num; j++) {
+                for (int i = 0; i < key; i++) {
+                    if (counter >= length)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        table[i, j] = plainText[counter];
+                        counter++;
+                    }
+                }
+            }
+            for (int i = 0; i < key; i++) {
+                for (int j = 0; j < col_num; j++) {
+                    if ((j + 1) * (i + 1) > length) {
+                        break;
+                    }
+                    cipherText += table[i, j];
+                }
+            }
+            return cipherText.ToUpper();
         }
     }
 }
