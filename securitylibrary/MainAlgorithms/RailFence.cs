@@ -10,7 +10,61 @@ namespace SecurityLibrary
     {
         public int Analyse(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
+            int key = 2;
+            double length = plainText.Length;
+            for (int k = 0; k <= 100; k++)
+            {
+                double coldouble = length / key;
+                int col_num = (int)Math.Ceiling(coldouble);
+                string cipherTexttemp = "";
+                int counter = 0;
+                char[,] table = new char[key, col_num];
+                for (int j = 0; j < col_num; j++)
+                {
+                    for (int i = 0; i < key; i++)
+                    {
+                        if (counter >= length)
+                        {
+                            table[i, j] = 'x';
+                        }
+                        else
+                        {
+                            table[i, j] = plainText[counter];
+                            counter++;
+                        }
+                    }
+                }
+                for (int i = 0; i < key; i++)
+                {
+                    for (int j = 0; j < col_num; j++)
+                    {
+                        if ((j + 1) * (i + 1) > length)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            if (table[i, j] == 'x')
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                cipherTexttemp += table[i, j];
+                            }
+                        }
+                    }
+                }
+                if (cipherTexttemp.ToUpper() == cipherText)
+                {
+                    break;
+                }
+                else
+                {
+                    key++;
+                }
+            }
+            return key;
         }
 
         public string Decrypt(string cipherText, int key)
