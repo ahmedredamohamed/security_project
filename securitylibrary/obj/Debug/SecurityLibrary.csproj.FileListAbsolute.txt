@@ -13,3 +13,8 @@ C:\Users\muham\Source\Repos\security_project\SecurityLibrary\bin\Debug\SecurityL
 C:\Users\muham\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
 C:\Users\muham\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
 C:\Users\muham\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
+C:\Users\mbmbmb\security_project\SecurityLibrary\bin\Debug\SecurityLibrary.dll
+C:\Users\mbmbmb\security_project\SecurityLibrary\bin\Debug\SecurityLibrary.pdb
+C:\Users\mbmbmb\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
+C:\Users\mbmbmb\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
+C:\Users\mbmbmb\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
