@@ -14,3 +14,4 @@ C:\Users\muham\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityL
 C:\Users\muham\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
 C:\Users\muham\Source\Repos\security_project\SecurityLibrary\bin\Debug\MathNet.Numerics.dll
 C:\Users\muham\Source\Repos\security_project\SecurityLibrary\bin\Debug\MathNet.Numerics.xml
+C:\Users\muham\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache

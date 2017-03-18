@@ -146,7 +146,6 @@ namespace SecurityPackageTest
 
         #region string test cases [Bonus]
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestEnc1()
         {
@@ -155,7 +154,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(cipher.Equals(mainCipher, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestDec1()
         {
@@ -173,7 +171,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(key.Equals(mainKey, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestEnc3()
         {
@@ -182,7 +179,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(cipher.Equals(cipherS3, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestDec3()
         {
@@ -191,7 +187,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(plain.Equals(mainPlain, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestEnc5()
         {
@@ -200,7 +195,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(cipher.Equals(mainCipher3, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestDec5()
         {
@@ -218,7 +212,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(key.Equals(mainKey3, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestNewEnc()
         {
@@ -227,7 +220,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(cipher.Equals(newCipher, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestNewDec()
         {
