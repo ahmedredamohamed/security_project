@@ -19,3 +19,5 @@ C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\bin\Debug\Secur
 C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.csprojResolveAssemblyReference.cache
 C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.dll
 C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb
+C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.dll
+C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.xml
