@@ -28,10 +28,10 @@ namespace SecurityLibrary
             double[,] keyMatrix;
             double[,] cipherMatrix;
             int matrixSize;
-            if (key.Count % 2 == 0)
-                matrixSize = 2;
-            else
+            if (key.Count % 2 != 0)
                 matrixSize = 3;
+            else
+                matrixSize = 2;
             keyMatrix = new double[matrixSize, matrixSize];
             cipherMatrix = new double[matrixSize, cipherText.Count / matrixSize];
             List<int> plainList = new List<int>();
