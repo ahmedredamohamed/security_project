@@ -8,19 +8,61 @@ using MathNet.Numerics.LinearAlgebra.Complex;
 
 namespace SecurityLibrary
 {
-        /// <summary>
-        /// The List<int> is row based. Which means that the key is given in row based manner.
-        /// </summary>
-        public class HillCipher : ICryptographicTechnique<string, string>, ICryptographicTechnique<List<int>, List<int>>
+    /// <summary>
+    /// The List<int> is row based. Which means that the key is given in row based manner.
+    /// </summary>
+    public class HillCipher : ICryptographicTechnique<string, string>, ICryptographicTechnique<List<int>, List<int>>
     {
         public List<int> Analyse(List<int> plainText, List<int> cipherText)
         {
-            throw new NotImplementedException();
+            double[,] plainMatrix;
+            double[,] cipherMatrix;
+            int matrixSize = 2;
+            plainMatrix = new double[matrixSize, matrixSize];
+            cipherMatrix = new double[matrixSize, matrixSize];
+            List<int> keyList = new List<int>();
+            addKeyListInMatrix(plainText, ref plainMatrix, matrixSize);
+            addKeyListInMatrix(cipherText, ref cipherMatrix, matrixSize);
+            double[,] palinInverse = inverseMatrix(plainMatrix);//nonrevirsible error
+            while(palinInverse==null)
+            {
+                plainText.RemoveRange(0, 2);
+                cipherText.RemoveRange(0, 2);
+                if(plainText.Count<4||cipherText.Count<4)
+                {
+                    throw new InvalidAnlysisException();
+                }
+                addKeyListInMatrix(plainText, ref plainMatrix, matrixSize);
+                addKeyListInMatrix(cipherText, ref cipherMatrix, matrixSize);
+                palinInverse = inverseMatrix(plainMatrix);//nonrevirsible error
+            }
+            Matrix<double> keyMatix = Matrix<double>.Build.Random(matrixSize, matrixSize);
+            Matrix<double>.Build.DenseOfArray(palinInverse).Multiply(Matrix<double>.Build.DenseOfArray(cipherMatrix), keyMatix);
+
+            addKeyMatrixtoList(ref keyList,keyMatix,matrixSize);
+            return keyList;
         }
 
+        
         public string Analyse(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
+            List<int> cipherList = new List<int>();
+            cipherText = cipherText.ToLower();
+            List<int> plainList = new List<int>();
+            plainText = plainText.ToLower();
+            List<int> keyList = new List<int>();
+
+            getCharactersIntValues(ref cipherList, cipherText);
+            getCharactersIntValues(ref plainList, plainText);
+
+            keyList = Analyse(plainList, cipherList);
+
+
+            string keyString = "";
+            getIntValuesCharacters(ref keyString, keyList);
+
+            return keyString;
+
         }
 
         public List<int> Decrypt(List<int> cipherText, List<int> key)
@@ -39,6 +81,8 @@ namespace SecurityLibrary
             addPlainOrCipherListInMatrix(cipherText, ref cipherMatrix, matrixSize, cipherText.Count / matrixSize);
 
             double[,] keyInverse = inverseMatrix(keyMatrix);
+            if (keyInverse == null)
+                throw new System.Exception();
 
             Matrix<double> plainMatrix = Matrix<double>.Build.Random(matrixSize, cipherText.Count / matrixSize);
             Matrix<double>.Build.DenseOfArray(keyInverse).Multiply(Matrix<double>.Build.DenseOfArray(cipherMatrix), plainMatrix);
@@ -46,7 +90,6 @@ namespace SecurityLibrary
             addPlainOrCipherMatrixToList(ref plainList, plainMatrix, matrixSize, cipherText.Count / matrixSize);
 
             return plainList;
-            //throw new NotImplementedException();
         }
 
         public string Decrypt(string cipherText, string key)
@@ -115,12 +158,56 @@ namespace SecurityLibrary
 
         public List<int> Analyse3By3Key(List<int> plain3, List<int> cipher3)
         {
-            throw new NotImplementedException();
+            double[,] plainMatrix;
+            double[,] cipherMatrix;
+            int matrixSize = 3;
+            plainMatrix = new double[matrixSize, matrixSize];
+            cipherMatrix = new double[matrixSize, matrixSize];
+            List<int> keyList = new List<int>();
+            addKeyListInMatrix(plain3, ref plainMatrix, matrixSize);
+            addKeyListInMatrix(cipher3, ref cipherMatrix, matrixSize);
+
+            double[,] palinInverse = inverseMatrix(plainMatrix);//nonrevirsible error
+            while (palinInverse == null)
+            {
+                plain3.RemoveRange(0, 3);
+                cipher3.RemoveRange(0, 3);
+                if (plain3.Count < 9 || cipher3.Count < 9)
+                {
+                    throw new InvalidAnlysisException();
+                }
+                addKeyListInMatrix(plain3, ref plainMatrix, matrixSize);
+                addKeyListInMatrix(cipher3, ref cipherMatrix, matrixSize);
+                palinInverse = inverseMatrix(plainMatrix);//nonrevirsible error
+            }
+
+            Matrix<double> keyMatix = Matrix<double>.Build.Random(matrixSize, matrixSize);
+            Matrix<double>.Build.DenseOfArray(palinInverse).Multiply(Matrix<double>.Build.DenseOfArray(cipherMatrix), keyMatix);
+
+            addKeyMatrixtoList(ref keyList, keyMatix, matrixSize);
+            return keyList;
         }
 
         public string Analyse3By3Key(string plain3, string cipher3)
         {
-            throw new NotImplementedException();
+            List<int> cipherList = new List<int>();
+            cipher3 = cipher3.ToLower();
+            List<int> plainList = new List<int>();
+            plain3 = plain3.ToLower();
+            List<int> keyList = new List<int>();
+
+            getCharactersIntValues(ref cipherList, cipher3);
+            getCharactersIntValues(ref plainList, plain3);
+
+            keyList = Analyse3By3Key(plainList, cipherList);
+
+
+            string keyString = "";
+            getIntValuesCharacters(ref keyString, keyList);
+
+            return keyString;
+
+
         }
 
         private void addKeyListInMatrix(List<int> keyList, ref double[,] keyMatrix, int matrixSize)
@@ -133,6 +220,16 @@ namespace SecurityLibrary
                     keyMatrix[i, j] = keyList[keyListIndex];
                     keyListIndex++;
                 }
+            }
+        }
+
+        private void addKeyMatrixtoList(ref List<int> List, Matrix<double> Matrix, int matrixSize)
+        {
+            for (int i = 0; i < matrixSize; i++)
+            {
+                for (int j = 0; j < matrixSize; j++)
+                    List.Add(Convert.ToInt32(Matrix[j, i] % 26));
+
             }
         }
 
@@ -186,8 +283,7 @@ namespace SecurityLibrary
             int inverseDet = 0;
             bool isInversable = CalculateDetInverse(ref inverseDet, Convert.ToInt32(det), 26);
             if (!isInversable)
-                throw new System.Exception();
-
+                return null;
             double[,] cofactorMatrix = new double[size, size];
             cofactorMatrix = calculateCofactor(matrix, size);
 
@@ -217,7 +313,7 @@ namespace SecurityLibrary
         private double[,] calculateCofactor(double[,] keyMatrix, int size)
         {
             double[,] cofactorMatrix = new double[size, size];
-            if(size==2)
+            if (size == 2)
             {
                 cofactorMatrix[0, 0] = keyMatrix[1, 1]; cofactorMatrix[0, 1] = -keyMatrix[1, 0];
                 cofactorMatrix[1, 0] = -keyMatrix[0, 1]; cofactorMatrix[1, 1] = keyMatrix[0, 0];

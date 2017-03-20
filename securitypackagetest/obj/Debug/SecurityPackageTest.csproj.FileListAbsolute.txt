@@ -21,3 +21,12 @@ C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\obj\Debug\Secur
 C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb
 C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.dll
 C:\Users\muham\Source\Repos\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.xml
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\bin\Debug\SecurityPackageTest.dll
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\bin\Debug\SecurityPackageTest.pdb
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\bin\Debug\SecurityLibrary.dll
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.dll
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\bin\Debug\SecurityLibrary.pdb
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.xml
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.csprojResolveAssemblyReference.cache
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.dll
+C:\Users\devar\Downloads\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb

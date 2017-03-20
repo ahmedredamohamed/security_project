@@ -162,7 +162,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(plain.Equals(mainPlain, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTest2By2Analysis1()
         {
@@ -203,7 +202,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(plain.Equals(mainPlain3, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTest3By3Analysis1()
         {
@@ -228,7 +226,6 @@ namespace SecurityPackageTest
             Assert.IsTrue(plain.Equals(newPlain, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        [Ignore]
         [TestMethod]
         public void HillCipherTestNew2By2Analysis()
         {
@@ -264,7 +261,6 @@ namespace SecurityPackageTest
 
         #region error test cases (key with no inverse) [Bonus]
 
-        [Ignore]
         [TestMethod]
         [ExpectedException(typeof(InvalidAnlysisException))]
         public void HillCipherError1()
