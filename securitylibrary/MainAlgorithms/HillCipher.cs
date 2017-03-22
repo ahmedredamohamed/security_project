@@ -21,29 +21,42 @@ namespace SecurityLibrary
             plainMatrix = new double[matrixSize, matrixSize];
             cipherMatrix = new double[matrixSize, matrixSize];
             List<int> keyList = new List<int>();
-            addKeyListInMatrix(plainText, ref plainMatrix, matrixSize);
-            addKeyListInMatrix(cipherText, ref cipherMatrix, matrixSize);
-            double[,] palinInverse = inverseMatrix(plainMatrix);//nonrevirsible error
-            while(palinInverse==null)
+            double[,] palinInverse = new double[matrixSize, matrixSize];
+            for (int i = 0; i < plainText.Count; i += 2)
             {
-                plainText.RemoveRange(0, 2);
-                cipherText.RemoveRange(0, 2);
-                if(plainText.Count<4||cipherText.Count<4)
+                for (int j = 0; j < plainText.Count; j += 2)
                 {
-                    throw new InvalidAnlysisException();
-                }
-                addKeyListInMatrix(plainText, ref plainMatrix, matrixSize);
-                addKeyListInMatrix(cipherText, ref cipherMatrix, matrixSize);
-                palinInverse = inverseMatrix(plainMatrix);//nonrevirsible error
-            }
-            Matrix<double> keyMatix = Matrix<double>.Build.Random(matrixSize, matrixSize);
-            Matrix<double>.Build.DenseOfArray(palinInverse).Multiply(Matrix<double>.Build.DenseOfArray(cipherMatrix), keyMatix);
+                    List<int> temp = new List<int>();
+                    temp.Add(plainText[i]);
+                    temp.Add(plainText[i + 1]);
+                    temp.Add(plainText[j]);
+                    temp.Add(plainText[j + 1]);
+                    addKeyListInMatrix(temp, ref plainMatrix, matrixSize);
+                    temp.Clear();
+                    temp.Add(cipherText[i]);
+                    temp.Add(cipherText[i + 1]);
+                    temp.Add(cipherText[j]);
+                    temp.Add(cipherText[j + 1]);
+                    addKeyListInMatrix(temp, ref cipherMatrix, matrixSize);
+                    try
+                    {
+                        palinInverse = inverseMatrix(plainMatrix);//nonrevirsible error
+                        Matrix<double> keyMatix = Matrix<double>.Build.Random(matrixSize, matrixSize);
+                        Matrix<double>.Build.DenseOfArray(palinInverse).Multiply(Matrix<double>.Build.DenseOfArray(cipherMatrix), keyMatix);
+                        addKeyMatrixtoList(ref keyList, keyMatix, matrixSize);
+                        return keyList;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
 
-            addKeyMatrixtoList(ref keyList,keyMatix,matrixSize);
-            return keyList;
+                }
+            }
+         throw new InvalidAnlysisException();
         }
 
-        
+
         public string Analyse(string plainText, string cipherText)
         {
             List<int> cipherList = new List<int>();

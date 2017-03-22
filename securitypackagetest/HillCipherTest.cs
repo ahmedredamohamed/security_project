@@ -270,7 +270,6 @@ namespace SecurityPackageTest
             string key2 = algorithm.Analyse(mainPlainError, mainCipherError);
         }
 
-        [Ignore]
         [TestMethod]
         [ExpectedException(typeof(InvalidAnlysisException), AllowDerivedTypes = true)]
         public void HillCipherError4()
