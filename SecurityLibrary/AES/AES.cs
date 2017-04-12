@@ -115,5 +115,11 @@ namespace SecurityLibrary.AES
                     state[i, j] ^= roundKey[i, j];
             return state;
         }
+
+        // ToDo:
+        private void mixColumns()
+        {
+
+        }
     }
 }
