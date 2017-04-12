@@ -57,14 +57,14 @@ namespace SecurityLibrary.AES
         }
         
     
-        public byte[,] subbytes(byte[,] state)
+        public byte[,] subBytes(byte[,] state)
         {
             for (int i = 0; i < 4; i++)
                 for (int j = 0; i < 4; j++)
                     state[i, j] = sbox[state[i, j] & 0xf0, state[i, j] & 0x0f];
             return state;
         }
-        public byte[,] inverseSubbytes(byte[,] state)
+        public byte[,] inverseSubBytes(byte[,] state)
         {
             for (int i = 0; i < 4; i++)
                 for (int j = 0; i < 4; j++)
