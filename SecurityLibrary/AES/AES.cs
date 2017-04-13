@@ -56,7 +56,7 @@ namespace SecurityLibrary.AES
         {
             string cipherText = "";
             byte[,] dummyByteArray = new byte[4, 4];
-            while (true)
+            while (true/*el loop hatfdl le7d ma no more 16 bytes in plaintxt remaining*/)
             {
                 byte[,] state = convertCharsToBytes(plainText);
                 addRoundKey(state, dummyByteArray);
