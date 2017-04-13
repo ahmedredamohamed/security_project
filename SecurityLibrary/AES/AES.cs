@@ -61,9 +61,23 @@ namespace SecurityLibrary.AES
         {
             string cipherText = "";
             byte[,] dummyByteArray = new byte[4, 4];
-            while (true/*el loop hatfdl le7d ma no more 16 bytes in plaintxt remaining*/)
+            bool loopTermination = false;
+            while (!loopTermination)
             {
-                byte[,] state = convertCharsToBytes(plainText);
+                string subPlainText = "";
+                if(plainText.Length>16)
+                {
+                    subPlainText = plainText.Substring(0, 16);
+                    plainText = plainText.Substring(16);
+                }
+                else
+                {
+                    subPlainText = plainText;
+                    while (subPlainText.Length != 16)
+                        subPlainText += '0';
+                    loopTermination = true;
+                }
+                byte[,] state = convertStringToBytes(subPlainText);
                 addRoundKey(state, dummyByteArray);
                 for (int i = 0; i < 9; i++)
                 {
@@ -75,12 +89,12 @@ namespace SecurityLibrary.AES
                 subBytes(state);
                 shiftRows(state);
                 addRoundKey(state, dummyByteArray);
-                cipherText += convertBytesToChars(state);
+                cipherText += convertBytesToString(state);
             }
             return cipherText;
         }
 
-        private string convertBytesToChars(byte[,] state)
+        private string convertBytesToString(byte[,] state)
         {
             string text = "";
             for (int i = 0; i < 4; i++)
@@ -89,7 +103,7 @@ namespace SecurityLibrary.AES
             return text;
         }
 
-        private byte[,] convertCharsToBytes(string plainText)
+        private byte[,] convertStringToBytes(string plainText)
         {
             byte[,] charsInBytes = new byte[4, 4];
             int plainTextIndex = 0;
