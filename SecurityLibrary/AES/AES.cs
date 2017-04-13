@@ -54,10 +54,50 @@ namespace SecurityLibrary.AES
 
         public override string Encrypt(string plainText, string key)
         {
+            string cipherText = "";
+            byte[,] dummyByteArray = new byte[4, 4];
+            while (true)
+            {
+                byte[,] state = convertCharsToBytes(plainText);
+                addRoundKey(state, dummyByteArray);
+                for (int i = 0; i < 9; i++)
+                {
+                    subBytes(state);
+                    shiftRows(state);
+                    mixColumns(state, dummyByteArray);
+                    addRoundKey(state, dummyByteArray);
+                }
+                subBytes(state);
+                shiftRows(state);
+                addRoundKey(state, dummyByteArray);
+                cipherText += convertBytesToChars(state);
+            }
+            return cipherText;
             throw new NotImplementedException();
         }
-        
-    
+
+        private string convertBytesToChars(byte[,] state)
+        {
+            string text = "";
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    text += Convert.ToChar(state[i,j]);
+            return text;
+        }
+
+        private byte[,] convertCharsToBytes(string plainText)
+        {
+            byte[,] charsInBytes = new byte[4, 4];
+            int plainTextIndex = 0;
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                {
+                    charsInBytes[i, j] = Convert.ToByte(plainText[plainTextIndex]);
+                    plainTextIndex++;
+                }
+            return charsInBytes;
+        }
+
         public byte[,] subBytes(byte[,] state)
         {
             for (int i = 0; i < 4; i++)
@@ -65,6 +105,7 @@ namespace SecurityLibrary.AES
                     state[i, j] = sbox[state[i, j] & 0xf0, state[i, j] & 0x0f];
             return state;
         }
+
         public byte[,] inverseSubBytes(byte[,] state)
         {
             for (int i = 0; i < 4; i++)
