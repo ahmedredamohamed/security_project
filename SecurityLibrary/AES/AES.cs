@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathNet.Numerics.LinearAlgebra;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -116,10 +117,22 @@ namespace SecurityLibrary.AES
             return state;
         }
 
-        // ToDo:
-        private void mixColumns()
+        private byte[,] mixColumns(byte[,] state, byte[,] vector)
         {
-
+            double[,] stateInDouble = new double[4, 4];
+            double[,] vectorInDouble = new double[1, 4];
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    stateInDouble[i, j] = Convert.ToDouble(state[i, j]);
+            for (int i = 0; i < 4; i++)
+                vectorInDouble[0, i] = Convert.ToDouble(vector[0, i]);
+            Matrix<double> stateInMatrix = Matrix<double>.Build.DenseOfArray(stateInDouble);
+            Matrix<double> resultStateInMatrix = Matrix<double>.Build.Random(4, 4);
+            Matrix<double>.Build.DenseOfArray(vectorInDouble).Multiply(stateInMatrix, resultStateInMatrix);
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    state[i, j] = Convert.ToByte(resultStateInMatrix[i,j]);
+            return state;
         }
     }
 }
