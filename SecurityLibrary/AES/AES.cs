@@ -46,7 +46,12 @@ namespace SecurityLibrary.AES
             { 0x60, 0x51, 0x7f, 0xa9, 0x19, 0xb5, 0x4a, 0x0d, 0x2d, 0xe5, 0x7a, 0x9f, 0x93, 0xc9, 0x9c, 0xef},
             { 0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61},
             { 0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d}};
-        
+        byte[,] mixColumnMatrix = new byte[4, 4] {
+            {0x02, 0x03, 0x01, 0x01 },
+            {0x01, 0x02, 0x03, 0x01 },
+            {0x01, 0x01, 0x02, 0x03 },
+            {0x03, 0x01, 0x01, 0x02 }};
+
         public override string Decrypt(string cipherText, string key)
         {
             throw new NotImplementedException();
@@ -56,9 +61,23 @@ namespace SecurityLibrary.AES
         {
             string cipherText = "";
             byte[,] dummyByteArray = new byte[4, 4];
-            while (true/*el loop hatfdl le7d ma no more 16 bytes in plaintxt remaining*/)
+            bool loopTermination = false;
+            while (!loopTermination)
             {
-                byte[,] state = convertCharsToBytes(plainText);
+                string subPlainText = "";
+                if(plainText.Length>16)
+                {
+                    subPlainText = plainText.Substring(0, 16);
+                    plainText = plainText.Substring(16);
+                }
+                else
+                {
+                    subPlainText = plainText;
+                    while (subPlainText.Length != 16)
+                        subPlainText += '0';
+                    loopTermination = true;
+                }
+                byte[,] state = convertStringToBytes(subPlainText);
                 addRoundKey(state, dummyByteArray);
                 for (int i = 0; i < 9; i++)
                 {
@@ -70,12 +89,12 @@ namespace SecurityLibrary.AES
                 subBytes(state);
                 shiftRows(state);
                 addRoundKey(state, dummyByteArray);
-                cipherText += convertBytesToChars(state);
+                cipherText += convertBytesToString(state);
             }
             return cipherText;
         }
 
-        private string convertBytesToChars(byte[,] state)
+        private string convertBytesToString(byte[,] state)
         {
             string text = "";
             for (int i = 0; i < 4; i++)
@@ -84,7 +103,7 @@ namespace SecurityLibrary.AES
             return text;
         }
 
-        private byte[,] convertCharsToBytes(string plainText)
+        private byte[,] convertStringToBytes(string plainText)
         {
             byte[,] charsInBytes = new byte[4, 4];
             int plainTextIndex = 0;
