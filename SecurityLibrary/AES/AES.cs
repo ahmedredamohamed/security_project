@@ -65,7 +65,7 @@ namespace SecurityLibrary.AES
             while (!loopTermination)
             {
                 string subPlainText = "";
-                if(plainText.Length>16)
+                if (plainText.Length > 16)
                 {
                     subPlainText = plainText.Substring(0, 16);
                     plainText = plainText.Substring(16);
@@ -81,14 +81,14 @@ namespace SecurityLibrary.AES
                 addRoundKey(state, dummyByteArray);
                 for (int i = 0; i < 9; i++)
                 {
-                    subBytes(state);
-                    shiftRows(state);
-                    mixColumns(state, dummyByteArray);
-                    addRoundKey(state, dummyByteArray);
+                    state = subBytes(state);
+                    state = shiftRows(state);
+                    state = mixColumns(state);
+                    state = addRoundKey(state, dummyByteArray);
                 }
-                subBytes(state);
-                shiftRows(state);
-                addRoundKey(state, dummyByteArray);
+                state = subBytes(state);
+                state = shiftRows(state);
+                state = addRoundKey(state, dummyByteArray);
                 cipherText += convertBytesToString(state);
             }
             return cipherText;
@@ -99,7 +99,7 @@ namespace SecurityLibrary.AES
             string text = "";
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++)
-                    text += Convert.ToChar(state[i,j]);
+                    text += Convert.ToChar(state[i, j]);
             return text;
         }
 
@@ -120,7 +120,7 @@ namespace SecurityLibrary.AES
         {
             for (int i = 0; i < 4; i++)
                 for (int j = 0; i < 4; j++)
-                    state[i, j] = sbox[state[i, j] >>4, state[i, j] & 0x0f];
+                    state[i, j] = sbox[state[i, j] >> 4, state[i, j] & 0x0f];
             return state;
         }
 
@@ -128,7 +128,7 @@ namespace SecurityLibrary.AES
         {
             for (int i = 0; i < 4; i++)
                 for (int j = 0; i < 4; j++)
-                    state[i, j] = inversesbox[state[i, j] >>4, state[i, j] & 0x0f];
+                    state[i, j] = inversesbox[state[i, j] >> 4, state[i, j] & 0x0f];
             return state;
         }
 
@@ -176,21 +176,43 @@ namespace SecurityLibrary.AES
             return state;
         }
 
-        private byte[,] mixColumns(byte[,] state, byte[,] vector)
+        private byte[,] mixColumns(byte[,] state)
         {
             double[,] stateInDouble = new double[4, 4];
-            double[,] vectorInDouble = new double[1, 4];
+            double[,] matrixInDouble = new double[4, 4];
+
+            //Transforms input state from byte array to double array
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++)
                     stateInDouble[i, j] = Convert.ToDouble(state[i, j]);
-            for (int i = 0; i < 4; i++)
-                vectorInDouble[0, i] = Convert.ToDouble(vector[0, i]);
-            Matrix<double> stateInMatrix = Matrix<double>.Build.DenseOfArray(stateInDouble);
-            Matrix<double> resultStateInMatrix = Matrix<double>.Build.Random(4, 4);
-            Matrix<double>.Build.DenseOfArray(vectorInDouble).Multiply(stateInMatrix, resultStateInMatrix);
+
+            //Transforms mix columns matrix from byte array to double array
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++)
-                    state[i, j] = Convert.ToByte(resultStateInMatrix[i,j]);
+                    matrixInDouble[i, j] = Convert.ToDouble(mixColumnMatrix[i, j]);
+
+            //Perform the multiplication between Mix_Col_Matrix * each vector of the input state
+            for (int i = 0; i < 4; i++)
+            {
+                double[] vector = new double[4];
+
+                //Gets the first column in an array of double
+                for (int j = 0; j < 4; j++)                             
+                    vector[j] = stateInDouble[j,i];
+
+                Vector<double> inputVector = Vector<double>.Build.DenseOfArray(vector);
+                Vector<double> resultVector = Vector<double>.Build.Random(4);
+                Matrix<double>.Build.DenseOfArray(matrixInDouble).Multiply(inputVector, resultVector);
+
+                //Update the state column with the new vector
+                for (int j = 0; j < 4; j++)
+                    stateInDouble[j, i] = resultVector[j];
+            }
+
+            //Transform the 2d array state of double to 2d array state of byte
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    state[i, j] = Convert.ToByte(stateInDouble[i, j]);
             return state;
         }
     }
