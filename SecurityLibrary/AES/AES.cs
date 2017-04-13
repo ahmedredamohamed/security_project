@@ -73,7 +73,6 @@ namespace SecurityLibrary.AES
                 cipherText += convertBytesToChars(state);
             }
             return cipherText;
-            throw new NotImplementedException();
         }
 
         private string convertBytesToChars(byte[,] state)
@@ -102,7 +101,7 @@ namespace SecurityLibrary.AES
         {
             for (int i = 0; i < 4; i++)
                 for (int j = 0; i < 4; j++)
-                    state[i, j] = sbox[state[i, j] & 0xf0, state[i, j] & 0x0f];
+                    state[i, j] = sbox[state[i, j] >>4, state[i, j] & 0x0f];
             return state;
         }
 
@@ -110,7 +109,7 @@ namespace SecurityLibrary.AES
         {
             for (int i = 0; i < 4; i++)
                 for (int j = 0; i < 4; j++)
-                    state[i, j] = inversesbox[state[i, j] & 0xf0, state[i, j] & 0x0f];
+                    state[i, j] = inversesbox[state[i, j] >>4, state[i, j] & 0x0f];
             return state;
         }
 
