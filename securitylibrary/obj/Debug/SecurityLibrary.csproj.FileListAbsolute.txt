@@ -22,3 +22,10 @@ C:\Users\devar\Downloads\security_project\SecurityLibrary\bin\Debug\MathNet.Nume
 C:\Users\devar\Downloads\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
 C:\Users\devar\Downloads\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
 C:\Users\devar\Downloads\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
+C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\bin\Debug\SecurityLibrary.dll
+C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\bin\Debug\SecurityLibrary.pdb
+C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\bin\Debug\MathNet.Numerics.dll
+C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\bin\Debug\MathNet.Numerics.xml
+C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
+C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
+C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
