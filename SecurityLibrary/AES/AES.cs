@@ -29,6 +29,7 @@ namespace SecurityLibrary.AES
             {0x70, 0x3e, 0xb5, 0x66, 0x48, 0x03, 0xf6, 0x0e, 0x61, 0x35, 0x57, 0xb9, 0x86, 0xc1, 0x1d, 0x9e},
             {0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf},
             {0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16} };
+
         byte[,] inversesbox = new byte[16, 16]{
             { 0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb},
             { 0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb},
@@ -46,11 +47,12 @@ namespace SecurityLibrary.AES
             { 0x60, 0x51, 0x7f, 0xa9, 0x19, 0xb5, 0x4a, 0x0d, 0x2d, 0xe5, 0x7a, 0x9f, 0x93, 0xc9, 0x9c, 0xef},
             { 0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61},
             { 0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d}};
+
         byte[,] mixColumnMatrix = new byte[4, 4] {
-            {0x02, 0x03, 0x01, 0x01 },
-            {0x01, 0x02, 0x03, 0x01 },
-            {0x01, 0x01, 0x02, 0x03 },
-            {0x03, 0x01, 0x01, 0x02 }};
+            { 0x02, 0x03, 0x01, 0x01 },
+            { 0x01, 0x02, 0x03, 0x01 },
+            { 0x01, 0x01, 0x02, 0x03 },
+            { 0x03, 0x01, 0x01, 0x02 }};
 
         public override string Decrypt(string cipherText, string key)
         {
@@ -119,7 +121,7 @@ namespace SecurityLibrary.AES
         public byte[,] subBytes(byte[,] state)
         {
             for (int i = 0; i < 4; i++)
-                for (int j = 0; i < 4; j++)
+                for (int j = 0; j < 4; j++)
                     state[i, j] = sbox[state[i, j] >> 4, state[i, j] & 0x0f];
             return state;
         }
@@ -132,38 +134,39 @@ namespace SecurityLibrary.AES
             return state;
         }
 
-        private byte[,] shiftRows(byte[,] state)
+        static byte[,] shiftRows(byte[,] state)
         {
             byte temp;
+
             //Second Row:
             temp = state[1, 0];
             for (int i = 0; i < 3; i++)
                 state[1, i] = state[1, i + 1];
-            state[1, 3] = state[1, 0];
+            state[1, 3] = temp;
 
             //Third Row:
             temp = state[2, 0];
             for (int i = 0; i < 3; i++)
                 state[2, i] = state[2, i + 1];
-            state[2, 3] = state[2, 0];
+            state[2, 3] = temp;
             temp = state[2, 0];
             for (int i = 0; i < 3; i++)
                 state[2, i] = state[2, i + 1];
-            state[2, 3] = state[2, 0];
+            state[2, 3] = temp;
 
             //Forth Row:
             temp = state[3, 0];
             for (int i = 0; i < 3; i++)
                 state[3, i] = state[3, i + 1];
-            state[3, 3] = state[3, 0];
+            state[3, 3] = temp;
             temp = state[3, 0];
             for (int i = 0; i < 3; i++)
                 state[3, i] = state[3, i + 1];
-            state[3, 3] = state[3, 0];
+            state[3, 3] = temp;
             temp = state[3, 0];
             for (int i = 0; i < 3; i++)
                 state[3, i] = state[3, i + 1];
-            state[3, 3] = state[3, 0];
+            state[3, 3] = temp;
 
             return state;
         }
