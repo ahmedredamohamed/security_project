@@ -68,7 +68,7 @@ namespace SecurityLibrary.AES
 
         byte[,] Key;
 
-    public override string Decrypt(string cipherText, string key)
+        public override string Decrypt(string cipherText, string key)
         {
             throw new NotImplementedException();
         }
@@ -77,7 +77,6 @@ namespace SecurityLibrary.AES
         {
             string cipherText = "";
             KeySchedule(key);
-            byte[,] dummyByteArray = new byte[4, 4];
             bool loopTermination = false;
             while (!loopTermination)
             {
@@ -95,17 +94,53 @@ namespace SecurityLibrary.AES
                     loopTermination = true;
                 }
                 byte[,] state = convertStringToBytes(subPlainText);
-                addRoundKey(state, dummyByteArray);
+                byte[,] currentKey = new byte[4, 4];
+                int keyRow = 0;
+                int keyCol = 0;
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        currentKey[i, j] = this.Key[keyRow, keyCol];
+                        keyCol++;
+                    }
+                    keyRow++;
+                    keyCol = 0;
+                }
+                addRoundKey(state, currentKey);
                 for (int i = 0; i < 9; i++)
                 {
                     state = subBytes(state);
                     state = shiftRows(state);
                     state = mixColumns(state);
-                    state = addRoundKey(state, dummyByteArray);
+
+                    for (int q = 0; q < 4; q++)
+                    {
+                        for (int m = 0; m < 4; m++)
+                        {
+                            currentKey[q, m] = this.Key[keyRow, keyCol];
+                            keyCol++;
+                        }
+                        keyRow++;
+                        keyCol = 0;
+                    }
+                    state = addRoundKey(state, currentKey);
                 }
                 state = subBytes(state);
                 state = shiftRows(state);
-                state = addRoundKey(state, dummyByteArray);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        currentKey[i, j] = this.Key[keyRow, keyCol];
+                        keyCol++;
+                    }
+                    keyRow++;
+                    keyCol = 0;
+                }
+
+                state = addRoundKey(state, currentKey);
                 cipherText += convertBytesToString(state);
             }
             return cipherText;
