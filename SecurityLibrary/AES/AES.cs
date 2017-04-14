@@ -76,7 +76,6 @@ namespace SecurityLibrary.AES
         public override string Encrypt(string plainText, string key)
         {
             string cipherText = "";
-            
             KeySchedule(key);
             byte[,] dummyByteArray = new byte[4, 4];
             bool loopTermination = false;
@@ -129,25 +128,38 @@ namespace SecurityLibrary.AES
                 for (int k = 0; k < 4; k++)
                     this.Key[i,k] = temp[j++];
 
-            for(int i=1;i<10;i++)
+            for(int i=1;i<11;i++)
             {
                 for (int l = 0; l < 4; l++)
                 {
                     byte[] word = new byte[4];
-                    byte tmp = this.Key[(4 * i) - 1, i - 1 ];
-                    word[0] = this.Key[(4 * i) - 1, i];
-                    word[1] = this.Key[(4 * i) - 1, i + 1];
-                    word[2] = this.Key[(4 * i) - 1,i + 2];
-                    word[3] = tmp;
+                    if (l == 0)
+                    {
+                        byte tmp = this.Key[(4 * i) - 1 + l, 0];
+                        word[0] = this.Key[(4 * i) - 1 + l, 1];
+                        word[1] = this.Key[(4 * i) - 1 + l, 2];
+                        word[2] = this.Key[(4 * i) - 1 + l, 3];
+                        word[3] = tmp;
+                        for (int k = 0; k < 4; k++)
+                            word[k] = sbox[word[k] >> 4, word[k] & 0x0f];
+                    }
+                    else
+                    {
+                        word[0] = this.Key[(4 * i) - 1 + l, 0];
+                        word[1] = this.Key[(4 * i) - 1 + l, 1];
+                        word[2] = this.Key[(4 * i) - 1 + l, 2];
+                        word[3] = this.Key[(4 * i) - 1 + l, 3];
+                    }
                     for (int k = 0; k < 4; k++)
-                        word[k] = sbox[word[k] >> 4, word[k] & 0x0f];
-
-                    for (int k = 0; k < 4; k++)
-                        if (k == 0)
-                            word[k] = Convert.ToByte(this.Key[(4 * i) - 4,i - 1 + k ] ^ word[k] ^ Rcon[i-1, k ]);
+                        if (l == 0)
+                            word[k] = Convert.ToByte(this.Key[(4 * i) - 4+l, k ] ^ word[k] ^ Rcon[i-1, k ]);
                         else
-                            word[k] = Convert.ToByte(this.Key[(4 * i) - 4,i - 1 + k] ^ word[k]);
+                            word[k] = Convert.ToByte(this.Key[(4 * i) - 4+l, k] ^ word[k]);
 
+                    this.Key[(4 * i)+l, 0] = word[0];
+                    this.Key[(4 * i)+l, 1] = word[1];
+                    this.Key[(4 * i)+l, 2] = word[2];
+                    this.Key[(4 * i)+l, 3] = word[3];
                 }
             }
 
