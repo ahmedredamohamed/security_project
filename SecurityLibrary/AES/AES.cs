@@ -283,44 +283,87 @@ namespace SecurityLibrary.AES
             return state;
         }
 
-        private byte[,] mixColumns(byte[,] state)
+        //private byte[,] mixColumns(byte[,] state)
+        //{
+        //    double[,] stateInDouble = new double[4, 4];
+        //    double[,] matrixInDouble = new double[4, 4];
+
+        //    //Transforms input state from byte array to double array
+        //    for (int i = 0; i < 4; i++)
+        //        for (int j = 0; j < 4; j++)
+        //            stateInDouble[i, j] = Convert.ToDouble(state[i, j]);
+
+        //    //Transforms mix columns matrix from byte array to double array
+        //    for (int i = 0; i < 4; i++)
+        //        for (int j = 0; j < 4; j++)
+        //            matrixInDouble[i, j] = Convert.ToDouble(mixColumnMatrix[i, j]);
+
+        //    //Perform the multiplication between Mix_Col_Matrix * each vector of the input state
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        double[] vector = new double[4];
+
+        //        //Gets the first column in an array of double
+        //        for (int j = 0; j < 4; j++)                             
+        //            vector[j] = stateInDouble[j,i];
+
+        //        Vector<double> inputVector = Vector<double>.Build.DenseOfArray(vector);
+        //        Vector<double> resultVector = Vector<double>.Build.Random(4);
+        //        Matrix<double>.Build.DenseOfArray(matrixInDouble).Multiply(inputVector, resultVector);
+
+        //        //Update the state column with the new vector
+        //        for (int j = 0; j < 4; j++)
+        //            stateInDouble[j, i] = resultVector[j];
+        //    }
+
+        //    //Transform the 2d array state of double to 2d array state of byte
+        //    for (int i = 0; i < 4; i++)
+        //        for (int j = 0; j < 4; j++)
+        //            state[i, j] = Convert.ToByte(stateInDouble[i, j]);
+        //    return state;
+        //}
+
+        static byte[,] mixColumns(byte[,] state)
         {
-            double[,] stateInDouble = new double[4, 4];
-            double[,] matrixInDouble = new double[4, 4];
-
-            //Transforms input state from byte array to double array
-            for (int i = 0; i < 4; i++)
-                for (int j = 0; j < 4; j++)
-                    stateInDouble[i, j] = Convert.ToDouble(state[i, j]);
-
-            //Transforms mix columns matrix from byte array to double array
-            for (int i = 0; i < 4; i++)
-                for (int j = 0; j < 4; j++)
-                    matrixInDouble[i, j] = Convert.ToDouble(mixColumnMatrix[i, j]);
-
-            //Perform the multiplication between Mix_Col_Matrix * each vector of the input state
             for (int i = 0; i < 4; i++)
             {
-                double[] vector = new double[4];
+                byte[] vector = new byte[4];
 
-                //Gets the first column in an array of double
-                for (int j = 0; j < 4; j++)                             
-                    vector[j] = stateInDouble[j,i];
-
-                Vector<double> inputVector = Vector<double>.Build.DenseOfArray(vector);
-                Vector<double> resultVector = Vector<double>.Build.Random(4);
-                Matrix<double>.Build.DenseOfArray(matrixInDouble).Multiply(inputVector, resultVector);
-
-                //Update the state column with the new vector
                 for (int j = 0; j < 4; j++)
-                    stateInDouble[j, i] = resultVector[j];
+                    vector[j] = state[j, i];
+
+                //                  [0x02      |      0x03      |      0x01      |      0x01]
+                state[0, i] = (byte)(GF2(vector[0]) ^ GF3(vector[1]) ^ vector[2] ^ vector[3]);
+
+                //                  [0x01      |      0x02      |      0x03      |      0x01]
+                state[1, i] = (byte)(vector[0] ^ GF2(vector[1]) ^ GF3(vector[2]) ^ (vector[3]));
+
+                //                  [0x01      |      0x01      |      0x02      |      0x03]
+                state[2, i] = (byte)((vector[0]) ^ (vector[1]) ^ GF2(vector[2]) ^ GF3(vector[3]));
+
+                //                  [0x03      |      0x01      |      0x01      |      0x02]
+                state[3, i] = (byte)(GF3(vector[0]) ^ (vector[1]) ^ (vector[2]) ^ GF2(vector[3]));
             }
-
-            //Transform the 2d array state of double to 2d array state of byte
-            for (int i = 0; i < 4; i++)
-                for (int j = 0; j < 4; j++)
-                    state[i, j] = Convert.ToByte(stateInDouble[i, j]);
             return state;
+        }
+        static byte GF2(byte input)
+        {
+            if (input < 0x80) //Input less than (1000 0000)2 so that shifting doesn't produce 1 in the MSB
+            {
+                input <<= 1;
+                return input; //Multiply by 2 = Shift lift by 1
+            }
+            else
+            {
+                input <<= 1;
+                return (byte)((input) ^ (0x1b)); //Mutiply by 2 then XOR with 1B
+            }
+        }
+
+        static byte GF3(byte input)
+        {
+            byte inputGF = GF2(input);
+            return (byte)(input ^ inputGF); //GF3(input) = XOR between original input and GF2(input)
         }
     }
 }
