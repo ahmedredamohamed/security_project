@@ -48,12 +48,6 @@ namespace SecurityLibrary.AES
             { 0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61},
             { 0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d}};
 
-        byte[,] mixColumnMatrix = new byte[4, 4] {
-            { 0x02, 0x03, 0x01, 0x01 },
-            { 0x01, 0x02, 0x03, 0x01 },
-            { 0x01, 0x01, 0x02, 0x03 },
-            { 0x03, 0x01, 0x01, 0x02 }};
-
         byte[,] Rcon=new byte[10, 4] {
             {0x01, 0x00, 0x00, 0x00},
             {0x02, 0x00, 0x00, 0x00},
@@ -107,7 +101,7 @@ namespace SecurityLibrary.AES
                         cipherTextIndex++;
                     }
                 byte[,] currentKey = new byte[4, 4];
-                int keyRow = 0;
+                int keyRow = 40;
                 int keyCol = 0;
                 for (int i = 0; i < 4; i++)
                 {
@@ -119,12 +113,12 @@ namespace SecurityLibrary.AES
                     keyRow++;
                     keyCol = 0;
                 }
+                keyRow -= 8;
                 state = addRoundKey(state, currentKey);
                 for (int i = 0; i < 9; i++)
                 {
                     state = invShiftRows(state);
                     state = invSubBytes(state);
-                    state = invMixColumns(state);
 
                     for (int q = 0; q < 4; q++)
                     {
@@ -136,7 +130,9 @@ namespace SecurityLibrary.AES
                         keyRow++;
                         keyCol = 0;
                     }
+                    keyRow -= 8;
                     state = addRoundKey(state, currentKey);
+                    state = invMixColumns(state);
                 }
                 state = invShiftRows(state);
                 state = invSubBytes(state);
@@ -491,31 +487,35 @@ namespace SecurityLibrary.AES
             byte gf = GF2(input);
             gf = GF2(gf);
             gf = GF2(gf);
-            return (byte)(gf ^ input); //X × 9 = (((X × 2) × 2) × 2)+X
+            return (byte)(gf ^ input); //X × 9 = (((X × 2) × 2) × 2) + X
         }
 
         private byte GFb(byte input)
         {
             byte gf = GF2(input);
             gf = GF2(gf);
+            gf ^= input;
             gf = GF2(gf);
-            return (byte)(gf ^ GF2(input) ^ input); //X × 11 = ((((X × 2) × 2) + X) × 2) + X
+            return (byte)(gf ^ input); //X × 11 = ((((X × 2) × 2) + X) × 2) + X
         }
 
         private byte GFd(byte input)
         {
             byte gf = GF2(input);
+            gf ^= input;
             gf = GF2(gf);
             gf = GF2(gf);
-            return (byte)(gf ^ GF2(GF2(input)) ^ input); //X × 13 = ((((X × 2) + X) × 2) × 2) + X
+            return (byte)(gf ^ input); //X × 13 = ((((X × 2) + X) × 2) × 2) + X
         }
 
         private byte GFe(byte input)
         {
             byte gf = GF2(input);
+            gf ^= input;
             gf = GF2(gf);
+            gf ^= input;
             gf = GF2(gf);
-            return (byte)(gf ^ GF2(GF2(input)) ^ GF2(input)); //X × 14 = ((((X × 2) + X) × 2) + X) × 2
+            return gf; //X × 14 = ((((X × 2) + X) × 2) + X) × 2
         }
     }
 }
