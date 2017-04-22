@@ -29,3 +29,10 @@ C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\bin\Debug\MathNet.N
 C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
 C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
 C:\Users\Saleh\Source\Repos\security_project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
+A:\FCIS\semester 8\Computer Security\Project\SecurityLibrary\bin\Debug\SecurityLibrary.dll
+A:\FCIS\semester 8\Computer Security\Project\SecurityLibrary\bin\Debug\SecurityLibrary.pdb
+A:\FCIS\semester 8\Computer Security\Project\SecurityLibrary\bin\Debug\MathNet.Numerics.dll
+A:\FCIS\semester 8\Computer Security\Project\SecurityLibrary\bin\Debug\MathNet.Numerics.xml
+A:\FCIS\semester 8\Computer Security\Project\SecurityLibrary\obj\Debug\SecurityLibrary.csprojResolveAssemblyReference.cache
+A:\FCIS\semester 8\Computer Security\Project\SecurityLibrary\obj\Debug\SecurityLibrary.dll
+A:\FCIS\semester 8\Computer Security\Project\SecurityLibrary\obj\Debug\SecurityLibrary.pdb
