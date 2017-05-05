@@ -39,12 +39,3 @@ A:\FCIS\semester 8\Computer Security\Project\SecurityPackageTest\bin\Debug\MathN
 A:\FCIS\semester 8\Computer Security\Project\SecurityPackageTest\obj\Debug\SecurityPackageTest.csprojResolveAssemblyReference.cache
 A:\FCIS\semester 8\Computer Security\Project\SecurityPackageTest\obj\Debug\SecurityPackageTest.dll
 A:\FCIS\semester 8\Computer Security\Project\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\bin\Debug\SecurityPackageTest.dll
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\bin\Debug\SecurityPackageTest.pdb
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\bin\Debug\SecurityLibrary.dll
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.dll
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\bin\Debug\SecurityLibrary.pdb
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\bin\Debug\MathNet.Numerics.xml
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.csprojResolveAssemblyReference.cache
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.dll
-C:\Users\Saleh\Source\Repos\security_project\SecurityPackageTest\obj\Debug\SecurityPackageTest.pdb
