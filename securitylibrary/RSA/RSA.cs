@@ -14,7 +14,7 @@ namespace SecurityLibrary.RSA
             int result = 1;
             for (int i = 0; i < e; i++) {
                 result *= (int)(Math.Pow(M, 1) % n);
-                while (result > n)
+                if (result > n)
                     result %= n;
             }
             return result;
@@ -55,7 +55,7 @@ namespace SecurityLibrary.RSA
             for (int i = 0; i < d; i++)
             {
                 result *= (int)(Math.Pow(C, 1) % n);
-                while (result > n)
+                if (result > n)
                     result %= n;
             }
             return result;

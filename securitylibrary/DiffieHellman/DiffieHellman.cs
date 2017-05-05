@@ -18,26 +18,26 @@ namespace SecurityLibrary.DiffieHellman
             for (int i = 0; i < xa; i++)
             {
                 YA *= (int)(Math.Pow(alpha, 1) % q);
-                while (YA > q)
+                if (YA > q)
                     YA %= q;
             }
             for (int i = 0; i < xb; i++)
             {
                 YB *= (int)(Math.Pow(alpha, 1) % q);
-                while (YB > q)
+                if (YB > q)
                     YB %= q;
             }
             for (int i = 0; i < xb; i++)
             {
                 key_1 *= (int)(Math.Pow(YA, 1) % q);
-                while (key_1 > q)
+                if (key_1 > q)
                     key_1 %= q;
             }
             Keys.Add(key_1);
             for (int i = 0; i < xa; i++)
             {
                 key_2 *= (int)(Math.Pow(YB, 1) % q);
-                while (key_2 > q)
+                if (key_2 > q)
                     key_2 %= q;
             }
             Keys.Add(key_2);
