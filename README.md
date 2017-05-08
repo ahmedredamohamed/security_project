@@ -1,7 +1,7 @@
 # security_project
-# Full implementation of most cryptography techniques<br>
-# Technologies used C#,Unit testing<br>
-# Algorithms<br>
+ Full implementation of most cryptography techniques<br>
+ Technologies used C#,Unit testing<br>
+ Algorithms<br>
     -Cesar<br>
     -AES<br>
     -Columnar<br>
